@@ -34,7 +34,12 @@ class User extends Authenticatable implements HasMedia
         'email',
         'phone_number',
         'password',
-        'location'
+        'location',
+        'avatar',
+        'google_id',
+        'google_token',
+        'facebook_id',
+        'facebook_token',
     ];
 
     /**
