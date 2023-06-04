@@ -11,6 +11,7 @@ class PageController extends Controller
     public function index()
     {
         $listings = Listing::with(['user'])->get();
+        
         return view('index')->with('listings', $listings);
     }
 
