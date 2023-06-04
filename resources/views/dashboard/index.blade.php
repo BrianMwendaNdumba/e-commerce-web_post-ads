@@ -87,15 +87,20 @@
                         <div class="myListing">
 
                             @foreach ($listings as $listing)
-                                <div class="singleFlexitem mb-24 wow fadeInUp social">
-                                    <div class="listCap">
-                                        <div class="recentImg">
-                                            <img style="width: 255px; height:206px; object-fit: cover;"
+                                <div class="singleFlexitem mb-24 wow fadeInUp social" style="width:100%">
+                                    <div class="listCap" style="width: 90%">
+                                        <div class="recentImg" style="width: 40%">
+                                            <img style="width: 300px; height: 206px; object-fit: cover;"
                                                 src="{{ $listing->getFirstMediaUrl('listings') }}" alt="images">
                                         </div>
-                                        <div class="recentCaption">
-                                            <h5><a href="{{ route('listing.show', ['slug' => $listing->slug]) }}"
-                                                    class="featureTittle">{{ $listing['title'] }}</a>
+
+                                        <div class="recentCaption"
+                                            style="align-self: flex-start; margin-left: 1rem; width: 60%">
+                                            <h5>
+                                                <a href="{{ route('listing.show', ['slug' => $listing->slug]) }}"
+                                                    class="featureTittle">
+                                                    {{ $listing['title'] }}
+                                                </a>
                                             </h5>
 
                                             </p>
@@ -112,9 +117,20 @@
                                                 <span class="latest_badge">Latest</span>
                                                 <span class="premium_badge">Trending</span>
                                             </div>
+                                            <div style="margin-top: 1rem">
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('listing.show', ['slug' => $listing->slug]) }}"
+                                                    class="btn" target="_blank" style="background-color: #3b5998;">
+                                                    Share on Facebook
+                                                </a>
+                                                <a href="whatsapp://send?text={{ route('listing.show', ['slug' => $listing->slug]) }}"
+                                                    class="btn" target="_blank" style="background-color: #25D366;">
+                                                    Share on WhatsApp
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="btn-wrapper mb-20">
+
+                                    <div class="btn-wrapper mb-20" style="width: 10%">
                                         <a href="{{ route('dashboard.edit', ['slug' => $listing->slug]) }}"
                                             class="custom_button_one btn_size_medium trasition_medium"><i
                                                 class="lar la-edit"></i> Edit</a>
