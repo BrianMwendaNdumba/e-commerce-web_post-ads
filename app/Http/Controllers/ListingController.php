@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Event;
 use App\Events\FileUploaded;
+use Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class ListingController extends Controller
 {
@@ -22,9 +25,13 @@ class ListingController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($request->safe()->only('title')['title']);
         $listing = Listing::create($data);
-        
+
         foreach ($request->images as $image) {
-            $listing->addMedia($image)->toMediaCollection('listings');
+            // Add watermark to the image and get the temporary path
+            $imageWithWatermark = $this->addWatermark($image);
+
+            $listing->addMedia($imageWithWatermark)->toMediaCollection('listings');
+            Storage::delete('storage/app/public/' . $image);
 
             event(new FileUploaded());
         }
@@ -123,5 +130,30 @@ class ListingController extends Controller
         } else {
             return false;
         }
+    }
+
+    private function addWatermark($image)
+    {
+        $watermarkPath = public_path('assets/img/watermark-light.png');
+        $imageWithWatermark = Image::make($image)->insert($watermarkPath, 'center');
+
+        // Save the watermarked image to a temporary file
+        $tempPath = sys_get_temp_dir() . '/' . uniqid() . '.jpg';
+        $imageWithWatermark->save($tempPath);
+
+        // Extract the original filename from the uploaded image
+        $originalFilename = $image->getClientOriginalName();
+
+        // Move the watermarked image to the public disk with the original filename
+        $destinationPath = '/' . $originalFilename;
+        Storage::disk('public')->put($destinationPath, file_get_contents($tempPath));
+
+        // Delete the temporary file
+        unlink($tempPath);
+
+        // Convert the temporary path to an UploadedFile object
+        $file = new UploadedFile('storage/' . $originalFilename, $originalFilename, null, null, true);
+
+        return $file;
     }
 }
