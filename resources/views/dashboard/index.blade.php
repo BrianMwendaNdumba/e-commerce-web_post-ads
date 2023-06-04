@@ -45,7 +45,8 @@
                                     </div>
                                 @else
                                     <div class="recentImg">
-                                        <img style="max-width:70px;" src="/assets/img/gallery/avatar.jpg"
+                                        <img style="max-width:70px;"
+                                            src="{{ Auth::user()->avatar ?? '/assets/img/gallery/avatar.jpg' }}"
                                             alt="user avatar">
                                     </div>
                                 @endif
