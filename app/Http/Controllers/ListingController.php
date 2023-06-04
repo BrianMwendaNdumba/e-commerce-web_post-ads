@@ -10,17 +10,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Event;
+use App\Events\FileUploaded;
+
 class ListingController extends Controller
 {
     public function store(ListingStoreRequest $request)
     {
-
         $data = $request->safe()->except(['images']);
+
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($request->safe()->only('title')['title']);
         $listing = Listing::create($data);
+        
         foreach ($request->images as $image) {
             $listing->addMedia($image)->toMediaCollection('listings');
+
+            event(new FileUploaded());
         }
 
         return redirect()->route('dashboard.index')
