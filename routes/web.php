@@ -5,6 +5,7 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Oauth Authentication Routes
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::prefix('social')->name('social.')->group(function () {
+        // Google Routes
+        Route::prefix('google')->name('google.')->group(function () {
+            Route::get('/', [SocialAuthController::class, 'redirectToGoogle'])->name('redirect');
+            Route::get('/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('callback');
+        });
+
+        // Facebook Routes
+        Route::prefix('facebook')->name('facebook.')->group(function () {
+            Route::get('/', [SocialAuthController::class, 'redirectToFacebook'])->name('redirect');
+            Route::get('/callback', [SocialAuthController::class, 'handleFacebookCallback'])->name('callback');
+        });
+    });
+});
 
 Route::get('/', [PageController::class, 'index'])->name('index');
 Route::get('/report/{slug}', [PageController::class, 'report'])->name('report');
