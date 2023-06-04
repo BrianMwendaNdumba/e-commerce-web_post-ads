@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Events\SendWelcomeMessage;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -45,7 +47,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Send the email verification notification
+        // event(new Registered($user));
+
+        // Send the welcome message to the user
+        event(new SendWelcomeMessage($user));
 
         Auth::login($user);
 
