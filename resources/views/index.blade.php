@@ -1,18 +1,17 @@
 <x-app-layout>
 
     <main>
-
         {{-- slider area --}}
         <div class="sliderArea heroBlackStyle plr">
             <div class="slider-active">
                 <div class="single-slider heroPadding2 d-flex align-items-center">
                     <div class="container-fluid ">
-                        <div class="row justify-content-between align-items-center">
+                        <div class="row justify-content-between align-items-start">
                             <div class="col-xxl-6 col-xl-7 col-lg-7 ">
                                 <div class="heroCaption">
-                                    <h1 class="tittle hero_title" data-animation="fadeInUp" data-delay="0.1s">Buy and
+                                    <h3 class="tittle hero_title" data-animation="fadeInUp" data-delay="0.1s">Buy and
                                         sell
-                                        anything <span class="lineBrack">you want</span> </h1>
+                                        anything <span class="lineBrack">you want</span> </h3>
                                     <p class="pera" data-animation="fadeInUp" data-delay="0.3s">Kenya's most loved and
                                         trusted Free classifieds ads website. Browse through thousands of items near
                                         you.</p>
@@ -26,8 +25,8 @@
                                             Ads</a>
                                     </div>
                                 </div>
-
                             </div>
+
                             <div class="col-xxl-5 col-xl-5 col-lg-5">
                                 <div class="hero-man d-none d-lg-block">
                                     <img src="/assets/img/hero/hero-man3.png" alt="images" class="tilt-effect "
@@ -38,7 +37,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -48,7 +46,7 @@
 
         {{-- categories section --}}
         <section class="exploreCategories section-padding">
-            <div class="container">
+            <div class="container" style="margin-top: -5rem;">
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-7 col-md-10 col-sm-10">
                         <div class="section-tittle text-center mb-50">
@@ -199,9 +197,7 @@
 
         {{-- featured ads section --}}
         <section class="featureListing bottom-padding2">
-
-            <div class="container">
-
+            <div class="container" style="margin-top: -2rem;">
                 <div class="row">
                     <div class="col-xl-8 col-lg-7 col-md-10 col-sm-10">
                         <div class="section-tittle mb-50">
@@ -210,11 +206,9 @@
                     </div>
                 </div>
 
-                <div class="row">
-
+                <div class="row" style="display: flex; justify-content: space-between;">
                     @foreach ($listings->take(12) as $listing)
                         <div class="col-lg-3">
-
                             <div class="singleFeature mb-24">
 
                                 <div class="featureImg">
@@ -249,9 +243,7 @@
                     @endforeach
 
                 </div>
-
             </div>
-
         </section>
         {{-- featured ads section --}}
 
@@ -339,7 +331,7 @@
 
         {{-- about section --}}
         <section class="aboutArea section-padding sectionBg1">
-            <div class="container position-relative">
+            <div class="container position-relative" style="margin-top: -5rem;">
                 <div class="row justify-content-center">
                     <div class="col-xxl-6 col-xl-7 col-lg-6">
                         <div class="about-caption about-caption2 mb-15  text-center">
@@ -366,7 +358,7 @@
                     <img src="/assets/img/gallery/aboutShape11.png" alt="images" class="bouncingAnimation">
                 </div>
                 <div class="aboutShape aboutShape2">
-                    <img src="/assets/img/gallery/aboutShape2.png" alt="images" class="bouncingAnimation">
+                    {{-- <img src="/assets/img/gallery/aboutShape2.png" alt="images" class="bouncingAnimation"> --}}
                 </div>
             </div>
         </section>
