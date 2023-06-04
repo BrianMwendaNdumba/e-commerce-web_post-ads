@@ -59,9 +59,9 @@
                     <div class="row">
                         <p class="mb-20 text-center">Or register with:</p>
                         <div class="social-login-buttons" style="display: flex; justify-content: space-between">
-                            <a href="#" class="btn"
+                            <a href="{{ route('auth.social.google.redirect') }}" class="btn"
                                 style="background-color: #DB4437; color: #fff; width: 47%">Google</a>
-                            <a href="#" class="btn"
+                            <a href="{{ route('auth.social.facebook.redirect') }}" class="btn"
                                 style="background-color: #3B5998; color: #fff; width: 47%">Facebook</a>
                         </div>
                         <p class="sinUp text-center mt-4">
