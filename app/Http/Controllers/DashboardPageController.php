@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\County;
 use App\Models\Favourite;
 use App\Models\Listing;
 use Illuminate\Http\Request;
@@ -10,15 +11,24 @@ class DashboardPageController extends Controller
 {
     public function index()
     {
-        // Get user and their listings
         $user = auth()->user();
         $listings = Listing::where('user_id', $user->id)->with(['user'])->get();
-        return view('dashboard.index')->with('listings', $listings);
+
+        $shareComponent = \Share::page(
+            'https://www.google.com',
+            'Share Example'
+        )
+        ->facebook()
+        ->whatsapp();
+
+        return view('dashboard.index', compact('listings', 'shareComponent'));
     }
 
     public function create()
     {
-        return view('dashboard.create');
+        $locations = County::all();
+
+        return view('dashboard.create', compact('locations'));
     }
 
     public function edit(string $slug)
