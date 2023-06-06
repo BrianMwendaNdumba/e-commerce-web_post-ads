@@ -21,7 +21,7 @@ class ListingController extends Controller
     public function store(ListingStoreRequest $request)
     {
         $data = $request->safe()->except(['images']);
-
+        
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($request->safe()->only('title')['title']);
         $listing = Listing::create($data);
