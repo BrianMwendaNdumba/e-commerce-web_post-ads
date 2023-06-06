@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('condition')->nullable();
             $table->string('price');
+            $table->foreignId('location')->constrained()->cascadeOnUpdate();
             $table->text('description');
             $table->boolean('is_negotiable')->nullable();
             $table->timestamps();
