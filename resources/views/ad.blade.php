@@ -42,11 +42,11 @@
                                 @foreach ($listing->getMedia('listings') as $image)
                                     <div class="single-main-image">
                                         <a class="long-img">
-                                            <img src="{{ $image->getUrl() }}" class="img-fluid" alt="image">
+                                            <img src="{{ $image->getUrl() }}" class="img-fluid" alt="image"
+                                                style="height: 100%; width: 100%; object-fit: cover">
                                         </a>
                                     </div>
                                 @endforeach
-
                             </div>
 
                             <div class="thumb-wrap">
@@ -61,7 +61,8 @@
                                     @foreach ($listing->getMedia('listings') as $image)
                                         <div class="single-thumb">
                                             <a class="thumb-link" data-toggle="tab">
-                                                <img src="{{ $image->getUrl() }}" alt="thumb">
+                                                <img src="{{ $image->getUrl() }}" alt="thumb"
+                                                    style="width: auto; height: 5rem; margin-top: 1rem">
                                             </a>
                                         </div>
                                     @endforeach
@@ -181,11 +182,15 @@
                                     </div>
                                 </div>
 
-                                <div class="descriptionFooter mt-80">
+                                <div class="descriptionFooter">
                                     <div class="btn-wrapper">
                                         <a href="{{ route('report', ['slug' => $listing->slug]) }}"
                                             class="btn_danger">
                                             <i class="lab la-font-awesome-flag"></i>Report</a>
+                                    </div>
+                                    <div style="margin-top: 1rem; display: flex; justify-content: center;"
+                                        class="social-btn-sp">
+                                        {!! Share::page(url('listing.show', ['slug' => $listing->slug]))->facebook()->whatsapp() !!}
                                     </div>
                                     {{-- <div class="socialWrap">
                                     <a href="#" class="social"><i class="lab la-facebook-square"></i></a>
@@ -205,10 +210,9 @@
                             <div class="sellerMessage mb-24">
                                 <div class="singleFlexitem mb-24">
 
-                                    @if ($listing->user->getFirstMediaUrl('profile_image'))
+                                    @if ($listing->user->avatar)
                                         <div class="recentImg">
-                                            <img style="max-width:70px;"
-                                                src="{{ $listing->user->getFirstMediaUrl('profile_image') }}"
+                                            <img style="max-width:70px;" src="{{ $listing->user->avatar }}"
                                                 alt="images">
                                         </div>
                                     @else

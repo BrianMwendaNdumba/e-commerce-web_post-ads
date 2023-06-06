@@ -22,6 +22,30 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/plugin.css">
     <link rel="stylesheet" href="/assets/css/main-style.css?11">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        .social-btn-sp #social-links {
+            margin: 0 auto;
+            width: auto;
+            display: inline-table;
+        }
+
+        .social-btn-sp #social-links ul li {
+            display: inline;
+        }
+
+        .social-btn-sp #social-links ul li a {
+            padding: 15px;
+            border: 1px solid #ccc;
+            margin: 1px;
+            font-size: 15px;
+            background: #e3e3ea;
+        }
+    </style>
+
     @vite(['resources/css/overrides.css'])
     {{ $styles ?? '' }}
 </head>
@@ -39,6 +63,8 @@
     <script src="/assets/js/plugin.js"></script>
 
     <script src="/assets/js/main.js?5"></script>
+
+    <script src="{{ asset('/tinymce/tinymce.min.js') }}"></script>
 
     <script type="text/javascript">
         function darken_screen(yesno) {

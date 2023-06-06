@@ -59,11 +59,11 @@
 
                     <div class="col">
                         <div class="singleCategories wow fadeInUp mb-24" data-wow-delay=".2s">
-                            <a href="{{ route('category', ['slug' => 'freelance']) }}" class="catThumb">
+                            <a href="{{ route('category', ['slug' => 'freelancer-services']) }}" class="catThumb">
                                 <img src="/assets/img/gallery/explore8.jpg" alt="images">
                             </a>
                             <div class="catCaptions">
-                                <h6> <a href="{{ route('category', ['slug' => 'freelance']) }}" class="tittle">
+                                <h6> <a href="{{ route('category', ['slug' => 'freelancer-services']) }}" class="tittle">
                                         Freelance Services </a> </h6>
                                 <p class="pera">12,990 items</p>
                             </div>

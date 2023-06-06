@@ -104,8 +104,8 @@
                                             </h5>
 
                                             </p>
-                                            @if ($listing->user->location)
-                                                <p class="featureCap">{{ $listing->user->location }} · <strong
+                                            @if ($listing->county)
+                                                <p class="featureCap">{{ $listing->county->name }} · <strong
                                                         class="subCap">{{ $listing->updated_at->diffForHumans(['parts' => 1]) }}</strong>
                                                 @else
                                                 <p class="featureCap">Location Not Set · <strong
@@ -117,16 +117,12 @@
                                                 <span class="latest_badge">Latest</span>
                                                 <span class="premium_badge">Trending</span>
                                             </div>
-                                            <div style="margin-top: 1rem">
-                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('listing.show', ['slug' => $listing->slug]) }}"
-                                                    class="btn" target="_blank" style="background-color: #3b5998;">
-                                                    Share on Facebook
-                                                </a>
-                                                <a href="whatsapp://send?text={{ route('listing.show', ['slug' => $listing->slug]) }}"
-                                                    class="btn" target="_blank" style="background-color: #25D366;">
-                                                    Share on WhatsApp
-                                                </a>
+
+                                            <div style="margin-top: 1rem; display: flex; justify-content: center;"
+                                                class="social-btn-sp">
+                                                {!! Share::page(url('listing.show', ['slug' => $listing->slug]))->facebook()->whatsapp() !!}
                                             </div>
+
                                         </div>
                                     </div>
 

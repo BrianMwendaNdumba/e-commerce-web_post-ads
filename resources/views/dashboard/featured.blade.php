@@ -117,10 +117,10 @@
                                             data-wow-delay=".1s">
                                             <h4 class="priceTittle">Basic</h4>
                                             <ul class="listing">
-                                                <li class="listItem"><i class="las la-check icon"></i>Post 5 ads</li>
+                                                <li class="listItem"><i class="las la-check icon"></i>Post 1 ad</li>
                                             </ul>
-                                            <span class="price">Kshs 2,500<span class="subTittle"> /Per
-                                                    month</span></span>
+                                            <span class="price">Kshs 80<span class="subTittle"> /Per
+                                                    day</span></span>
                                             <div class="btn-wrapper">
                                                 <a href="#"
                                                     class="custom_button_one btn_size_large trasition_medium">Get
@@ -134,10 +134,9 @@
                                             data-wow-delay=".2s">
                                             <h4 class="priceTittle">Premium</h4>
                                             <ul class="listing">
-                                                <li class="listItem"><i class="las la-check icon"></i>Post top banner
-                                                    one ad</li>
+                                                <li class="listItem"><i class="las la-check icon"></i>Post 3 ads</li>
                                             </ul>
-                                            <span class="price">Kshs 800<span class="subTittle"> /Per
+                                            <span class="price">Kshs 500<span class="subTittle"> /Per
                                                     week</span></span>
                                             <div class="btn-wrapper">
                                                 <a href="#"

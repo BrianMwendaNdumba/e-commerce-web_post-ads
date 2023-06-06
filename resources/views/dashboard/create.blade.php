@@ -115,6 +115,24 @@
                                         <x-basic-input :name="__('price')" :type="__('number')" :placeholder="__('Ksh')" />
                                     </div>
 
+                                    <div class="col-lg-12" style="margin-bottom: 1.5rem">
+                                        <label class="infoTitle" id="location">Location</label>
+                                        @error('location')
+                                            <div class="val_error">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        <select name="location" class="category_select">
+                                            <option value="" disabled selected hidden>Choose a Location
+                                            </option>
+                                            @foreach ($locations as $location)
+                                                <option value="{{ $location->id }}">
+                                                    {{ $location->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="col-sm-12">
                                         <label class="checkWrap2" id="is_negotiable">Negotiable
                                             <input class="effectBorder" name="is_negotiable" type="checkbox"
