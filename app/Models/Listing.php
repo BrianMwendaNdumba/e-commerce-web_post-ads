@@ -31,6 +31,11 @@ class Listing extends Model implements HasMedia
         return $this->hasMany(Review::class);
     }
 
+    public function county()
+    {
+        return $this->belongsTo(County::class , 'location');
+    }
+
     protected $fillable = [
         'user_id',
         'category_id',
@@ -38,6 +43,7 @@ class Listing extends Model implements HasMedia
         'slug',
         'condition',
         'price',
+        'location',
         'description',
         'is_negotiable',
     ];
