@@ -26,6 +26,7 @@ class ListingStoreRequest extends FormRequest
             'title' => ['required', 'string', 'max:80'],
             'condition' => ['nullable', 'string', 'max:10'],
             'price' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1024'],
             'is_negotiable' => ['nullable', 'string', 'max:1'],
             'images' => ['required', 'array', 'max:10'],
