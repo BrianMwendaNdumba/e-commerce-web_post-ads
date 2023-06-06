@@ -33,6 +33,7 @@ class PageController extends Controller
     {
         $category = Category::where('slug', $slug)->with(['listing'])
             ->firstOrfail();
+            
         return view('category')->with('category', $category);
     }
 }
