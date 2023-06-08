@@ -12,14 +12,14 @@ class DashboardPageController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $listings = Listing::where('user_id', $user->id)->with(['user'])->get();
+        $listings = Listing::where('user_id', $user->id)->with(['user'])->latest()->get();
 
         $shareComponent = \Share::page(
             'https://www.google.com',
             'Share Example'
         )
-        ->facebook()
-        ->whatsapp();
+            ->facebook()
+            ->whatsapp();
 
         return view('dashboard.index', compact('listings', 'shareComponent'));
     }
@@ -35,6 +35,8 @@ class DashboardPageController extends Controller
     {
         $listing = Listing::where('slug', $slug)
             ->firstOrFail();
+        $locations = County::all();
+
         foreach ($listing->getMedia('listings') as $image) {
             $imagePaths[] = [
                 'id' => $image->id,
@@ -43,6 +45,7 @@ class DashboardPageController extends Controller
         }
         return view('dashboard.edit')
             ->with('listing', $listing)
+            ->with('locations', $locations)
             ->with('imagePaths', $imagePaths);
     }
 
