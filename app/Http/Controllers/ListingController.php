@@ -15,13 +15,14 @@ use App\Events\FileUploaded;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use \Sightengine\SightengineClient;
 
 class ListingController extends Controller
 {
     public function store(ListingStoreRequest $request)
     {
         $data = $request->safe()->except(['images']);
-        
+
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($request->safe()->only('title')['title']);
         $listing = Listing::create($data);
@@ -155,5 +156,17 @@ class ListingController extends Controller
         $file = new UploadedFile('storage/' . $originalFilename, $originalFilename, null, null, true);
 
         return $file;
+    }
+
+    private function checkImage($image)
+    {
+        $client = new SightengineClient(env('SIGHTENGINEUSER'), env('SIGHTENGINEKEY'));
+        $output = $client->check(['nudity'])->set_file($image);
+
+        if ($output['nudity']['raw'] > 0.5) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
