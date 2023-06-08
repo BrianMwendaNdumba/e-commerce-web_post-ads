@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('condition')->nullable();
+            $table->integer('mileage')->nullable();
+            $table->string('engine')->nullable();
             $table->string('price');
             $table->foreignId('location')->constrained()->cascadeOnUpdate();
             $table->text('description');
