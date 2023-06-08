@@ -79,7 +79,7 @@
                                             href="#">{{ Auth::user()->email }}</a>
                                     </li>
                                     <li class="listItem"><i
-                                            class="las la-phone icon"></i>{{ Auth::user()->phone_number }}</li>
+                                            class="las la-phone icon"></i>{{ Auth::user()->phone_number ?? 'N/A' }}</li>
                                 </ul>
                             </div>
                         </div>
