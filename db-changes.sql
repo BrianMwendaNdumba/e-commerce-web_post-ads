@@ -6,8 +6,15 @@
 -- );
 
 ALTER TABLE users ADD COLUMN avatar varchar(255) DEFAULT NULL AFTER location;
+
 ALTER TABLE users ADD COLUMN google_id VARCHAR(255) NULL AFTER avatar, ADD COLUMN google_token VARCHAR(255) NULL AFTER google_id;
+
 ALTER TABLE users MODIFY COLUMN phone_number VARCHAR(255) DEFAULT NULL, ADD UNIQUE (phone_number);
+
 ALTER TABLE users MODIFY COLUMN password VARCHAR(255) DEFAULT NULL;
+
 ALTER TABLE users ADD COLUMN facebook_id VARCHAR(255) DEFAULT NULL AFTER google_token, ADD COLUMN facebook_token VARCHAR(255) DEFAULT NULL AFTER facebook_id;
+
 ALTER TABLE listings ADD COLUMN location VARCHAR(255) AFTER price;
+
+ALTER TABLE listings ADD COLUMN mileage INT NULL AFTER `condition`, ADD COLUMN engine VARCHAR(255) NULL AFTER mileage;
