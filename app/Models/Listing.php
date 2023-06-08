@@ -42,6 +42,8 @@ class Listing extends Model implements HasMedia
         'title',
         'slug',
         'condition',
+        'mileage',
+        'engine',
         'price',
         'location',
         'description',
