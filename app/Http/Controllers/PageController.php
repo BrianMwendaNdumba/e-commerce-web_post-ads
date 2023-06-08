@@ -18,6 +18,7 @@ class PageController extends Controller
     public function ads()
     {
         $listings = Listing::with(['user'])->get();
+        
         return view('ads')->with('listings', $listings);
     }
 
