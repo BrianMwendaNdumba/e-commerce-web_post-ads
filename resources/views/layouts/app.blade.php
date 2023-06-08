@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <style>
+        a {
+            text-decoration: none;
+        }
         .social-btn-sp #social-links {
             margin: 0 auto;
             width: auto;
@@ -46,6 +49,19 @@
         }
     </style>
 
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/aygsogxe70x8lr6qx34szo7srzzhombt1y0qan462zgebdiv/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea#editor',
+        skin: 'bootstrap',
+        plugins: 'lists, link',
+        toolbar: 'h1 h2 h3 h4 h5 h6 bold italic strikethrough blockquote bullist numlist backcolor | removeformat help',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        menubar: false,
+      });
+    </script>
+
     @vite(['resources/css/overrides.css'])
     {{ $styles ?? '' }}
 </head>
@@ -59,12 +75,8 @@
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
-
     <script src="/assets/js/plugin.js"></script>
-
     <script src="/assets/js/main.js?5"></script>
-
-    <script src="{{ asset('/tinymce/tinymce.min.js') }}"></script>
 
     <script type="text/javascript">
         function darken_screen(yesno) {
