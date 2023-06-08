@@ -37,18 +37,6 @@
                                 action="{{ route('listing.store') }}">
                                 @csrf
 
-                                @if ($errors->any())
-                                    <div class="col-12 mt-10 mb-10 error_validation_section">
-                                        <h6>Please check if you filled out all the required fields
-                                        </h6>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
                                 <div class="row ad_form_tab form_tab_active">
 
                                     <div class="col-12 mb-20">
@@ -59,7 +47,7 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <select name="category_id" class="category_select">
+                                            <select name="category_id" id="category_id" class="category_select">
                                                 <option value="" disabled selected hidden>Choose a Category
                                                 </option>
                                                 @foreach ($categories as $category)
@@ -82,12 +70,12 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <textarea id="summernote" name="description">
+                                        <textarea id="editor" name="description">
                                             {{ old('description') }}
                                         </textarea>
                                     </div>
 
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-lg-12 col-md-12" id="condition">
                                         <div class="condition">
                                             <h6 class="infoTitle">Condition</h6>
                                             @error('condition')
@@ -95,16 +83,25 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <div class="cs_radio_btn">
-                                                <div class="radio">
-                                                    <input id="radio-2" name="condition" value="new" type="radio"
-                                                        tabindex="0">
-                                                    <label for="radio-2" class="radio-label">New</label>
+                                            <div class="cs_radio_btn" id="condition_container">
+                                                {{-- Content here --}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12" id="vehicle_details">
+                                        <div class="condition">
+                                            <h6 class="infoTitle">Vehicle Details</h6>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <label class="infoTitle" id="mileage">Mileage</label>
+                                                    <x-basic-input :name="__('mileage')" :placeholder="__('Mileage')"
+                                                        :type="__('number')" />
                                                 </div>
-                                                <div class="radio">
-                                                    <input id="radio-1" name="condition" value="Used" type="radio"
-                                                        tabindex="0">
-                                                    <label for="radio-1" class="radio-label">Used</label>
+                                                <div class="col-lg-6">
+                                                    <label class="infoTitle" id="engine">Engine</label>
+                                                    <x-basic-input :name="__('engine')" :placeholder="__('Engine')"
+                                                        :type="__('text')" />
                                                 </div>
                                             </div>
                                         </div>
@@ -218,6 +215,78 @@
                 maxSize: 2 * 1024 * 1024,
                 maxFiles: 10,
                 imagesInputName: 'images'
+            });
+
+            // Show/Hide usage field based on category selected
+            $(document).ready(function() {
+                var conditionField = $('#condition_container');
+                var conditionOptions = getConditionOptions(1);
+
+                // Show the condition field and set the initial condition options
+                conditionField.show().html(conditionOptions);
+
+                // Update the condition field options when the category changes
+                $('#category_id').on('change', function() {
+                    var selectedCategory = $(this).val();
+                    var conditionOptions = getConditionOptions(selectedCategory);
+                    conditionField.html(conditionOptions);
+                });
+
+                function getConditionOptions(categoryId) {
+                    var options = '';
+
+                    if (categoryId == 4) {
+                        options += '<div class="radio">' +
+                            '<input id="radio-2" name="condition" value="Kenyan Used" type="radio" tabindex="0">' +
+                            '<label for="radio-2" class="radio-label">Kenyan Used</label>' +
+                            '</div>' +
+                            '<div class="radio">' +
+                            '<input id="radio-1" name="condition" value="Foreign Used" type="radio" tabindex="0">' +
+                            '<label for="radio-1" class="radio-label">Foreign Used</label>' +
+                            '</div>';
+                    } else {
+                        options += '<div class="radio">' +
+                            '<input id="radio-2" name="condition" value="new" type="radio" tabindex="0">' +
+                            '<label for="radio-2" class="radio-label">New</label>' +
+                            '</div>' +
+                            '<div class="radio">' +
+                            '<input id="radio-1" name="condition" value="Used" type="radio" tabindex="0">' +
+                            '<label for="radio-1" class="radio-label">Used</label>' +
+                            '</div>';
+                    }
+
+                    return options;
+                }
+            });
+
+            // Show/Hide condition field based on category selected
+            $(document).ready(function() {
+                $('#category_id').on('change', function() {
+                    if (this.value == 1 || this.value == 5) {
+                        $('#condition').hide();
+                    } else {
+                        $('#condition').show();
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                var categoryField = $('#category_id');
+                var vehicleDetailsField = $('#vehicle_details');
+
+                // Hide the vehicle details field initially
+                vehicleDetailsField.hide();
+
+                // Show/hide the vehicle details field based on the category selection
+                categoryField.on('change', function() {
+                    var selectedCategory = $(this).val();
+
+                    if (selectedCategory == 4) {
+                        vehicleDetailsField.show();
+                    } else {
+                        vehicleDetailsField.hide();
+                    }
+                });
             });
         </script>
     </x-slot>
