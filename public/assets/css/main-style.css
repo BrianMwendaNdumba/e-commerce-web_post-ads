@@ -13535,7 +13535,7 @@ object {
     font-size: 23px;
 }
 .listingDetails-Wrapper .listingDetails .condition {
-    padding: 25px 22px;
+    padding: 25px 0px;
     padding-bottom: 16px;
     border: 1px solid rgba(208, 213, 221, 0.4);
     border-radius: 8px;
@@ -13545,6 +13545,7 @@ object {
     margin-bottom: 20px;
 }
 .listingDetails-Wrapper .listingDetails .condition .radio {
+    margin: 0.4rem 0 0 0.5rem;
     display: inline-block;
 }
 .listingDetails-Wrapper
