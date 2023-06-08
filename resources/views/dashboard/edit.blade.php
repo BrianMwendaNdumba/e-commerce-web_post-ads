@@ -37,17 +37,6 @@
                                 action="{{ route('listing.update', ['slug' => $listing->slug]) }}">
                                 @csrf
                                 @method('patch')
-                                @if ($errors->any())
-                                    <div class="col-12 mt-10 mb-10 error_validation_section">
-                                        <h6>Please check if you filled out all the required fields
-                                        </h6>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
 
                                 <div class="row ad_form_tab form_tab_active">
 
@@ -59,7 +48,7 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <select name="category_id" class="category_select">
+                                            <select name="category_id" id="category_id" class="category_select">
                                                 @foreach ($categories as $category)
                                                     <option @selected($category->id == $listing->category_id) value="{{ $category->id }}">
                                                         {{ $category->title }}
@@ -82,12 +71,12 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <textarea id="summernote" name="description">
+                                        <textarea id="editor" name="description">
                                             {{ old('description') ?? $listing->description }}
                                         </textarea>
                                     </div>
 
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-lg-12 col-md-12" id="condition">
                                         <div class="condition">
                                             <h6 class="infoTitle">Condition</h6>
                                             @error('condition')
@@ -95,16 +84,25 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <div class="cs_radio_btn">
-                                                <div class="radio">
-                                                    <input id="radio-2" @checked($listing->condition == 'new') name="condition"
-                                                        value="new" type="radio" tabindex="0">
-                                                    <label for="radio-2" class="radio-label">New</label>
+                                            <div class="cs_radio_btn" id="condition_container">
+                                                {{-- Content here --}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12" id="vehicle_details">
+                                        <div class="condition">
+                                            <h6 class="infoTitle">Vehicle Details</h6>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <label class="infoTitle" id="mileage">Mileage</label>
+                                                    <x-basic-input :name="__('mileage')" :placeholder="__('Mileage')" :type="__('number')"
+                                                        value="{{ $listing->mileage ?? '' }}" />
                                                 </div>
-                                                <div class="radio">
-                                                    <input id="radio-1" @checked($listing->condition == 'Used') name="condition"
-                                                        value="Used" type="radio" tabindex="0">
-                                                    <label for="radio-1" class="radio-label">Used</label>
+                                                <div class="col-lg-6">
+                                                    <label class="infoTitle" id="engine">Engine</label>
+                                                    <x-basic-input :name="__('engine')" :placeholder="__('Engine')" :type="__('text')"
+                                                        value="{{ $listing->engine ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -114,6 +112,24 @@
                                         <label class="infoTitle" id="price">Price</label>
                                         <x-basic-input :name="__('price')" value="{{ $listing->price }}"
                                             :type="__('number')" :placeholder="__('Ksh')" />
+                                    </div>
+
+                                    <div class="col-lg-12" style="margin-bottom: 1.5rem">
+                                        <label class="infoTitle" id="location">Location</label>
+                                        @error('location')
+                                            <div class="val_error">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        <select name="location" class="category_select">
+                                            <option value="" disabled selected hidden>Choose a Location
+                                            </option>
+                                            @foreach ($locations as $location)
+                                                <option value="{{ $location->id }}" @selected($location->id == $listing->location)>
+                                                    {{ $location->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-sm-12">
@@ -210,6 +226,105 @@
                 maxSize: 2 * 1024 * 1024,
                 maxFiles: 10,
                 imagesInputName: 'images'
+            });
+
+            $(document).ready(function() {
+                var conditionField = $('#condition_container');
+                // Function to get the condition options based on the selected category
+                function getConditionOptions(categoryId, selectedCondition) {
+                    var options = '';
+
+                    if (categoryId == 4) {
+                        options += '<div class="radio">' +
+                            '<input id="radio-2" name="condition" value="Kenyan Used" type="radio" tabindex="0"' + (
+                                selectedCondition == 'Kenyan Used' ? ' checked' : '') + '>' +
+                            '<label for="radio-2" class="radio-label">Kenyan Used</label>' +
+                            '</div>' +
+                            '<div class="radio">' +
+                            '<input id="radio-1" name="condition" value="Foreign Used" type="radio" tabindex="0"' + (
+                                selectedCondition == 'Foreign Used' ? ' checked' : '') + '>' +
+                            '<label for="radio-1" class="radio-label">Foreign Used</label>' +
+                            '</div>';
+                    } else {
+                        options += '<div class="radio">' +
+                            '<input id="radio-2" name="condition" value="new" type="radio" tabindex="0"' + (
+                                selectedCondition == 'new' ? ' checked' : '') + '>' +
+                            '<label for="radio-2" class="radio-label">New</label>' +
+                            '</div>' +
+                            '<div class="radio">' +
+                            '<input id="radio-1" name="condition" value="Used" type="radio" tabindex="0"' + (
+                                selectedCondition == 'Used' ? ' checked' : '') + '>' +
+                            '<label for="radio-1" class="radio-label">Used</label>' +
+                            '</div>';
+                    }
+
+                    return options;
+                }
+
+                // Get the selected category ID and condition value from the database
+                var categoryId = {{ $listing->category_id }};
+                var selectedCondition = '{{ $listing->condition }}';
+                // Show the condition field and set the condition options with the selected option
+                conditionField.show().html(getConditionOptions(categoryId, selectedCondition));
+                // Update the condition field options when the category changes
+                $('#category_id').on('change', function() {
+                    var selectedCategory = $(this).val();
+                    var selectedCondition = '';
+
+                    conditionField.html(getConditionOptions(selectedCategory, selectedCondition));
+                });
+            });
+
+            // Show or hide the condition field based on the category selection
+            $(document).ready(function() {
+                var categoryField = $('#category_id');
+                var conditionField = $('#condition');
+
+                // Function to show or hide the condition field based on the category selection
+                function toggleConditionField() {
+                    if (categoryField.val() == 1 || categoryField.val() == 5) {
+                        conditionField.hide();
+                    } else {
+                        conditionField.show();
+                    }
+                }
+
+                // Set the initial selected category value based on the data from the database
+                categoryField.val({{ $listing->category_id }});
+                // Show or hide the condition field based on the initial selected category value
+                toggleConditionField();
+                // Show or hide the condition field when the category selection changes
+                categoryField.on('change', function() {
+                    toggleConditionField();
+                });
+            });
+
+            // Show or hide the vehicle details field based on the category selection
+            $(document).ready(function() {
+                var categoryField = $('#category_id');
+                var vehicleDetailsField = $('#vehicle_details');
+
+                // Function to show or hide the vehicle details field based on the category selection
+                function toggleVehicleDetailsField() {
+                    var selectedCategory = categoryField.val();
+
+                    if (selectedCategory == 4) {
+                        vehicleDetailsField.show();
+                    } else {
+                        vehicleDetailsField.hide();
+                    }
+                }
+
+                // Hide the vehicle details field initially
+                vehicleDetailsField.hide();
+                // Set the initial selected category value based on the data from the database
+                categoryField.val({{ $listing->category_id }});
+                // Show or hide the vehicle details field based on the initial selected category value
+                toggleVehicleDetailsField();
+                // Show or hide the vehicle details field when the category selection changes
+                categoryField.on('change', function() {
+                    toggleVehicleDetailsField();
+                });
             });
         </script>
     </x-slot>
