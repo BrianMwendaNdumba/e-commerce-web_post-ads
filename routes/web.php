@@ -26,12 +26,6 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('/', [SocialAuthController::class, 'redirectToGoogle'])->name('redirect');
             Route::get('/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('callback');
         });
-
-        // Facebook Routes
-        Route::prefix('facebook')->name('facebook.')->group(function () {
-            Route::get('/', [SocialAuthController::class, 'redirectToFacebook'])->name('redirect');
-            Route::get('/callback', [SocialAuthController::class, 'handleFacebookCallback'])->name('callback');
-        });
     });
 });
 

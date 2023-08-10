@@ -3,11 +3,13 @@
 @endphp
 
 <x-app-layout :title="$title">
+
     <main>
 
         <div class="proDetails pt-40">
 
             <div class="container">
+
                 {{-- breadcrumbs --}}
                 <div class="row mb-40">
                     <div class="col-sm-12">
@@ -152,7 +154,8 @@
                                             <div class="section-tittle mb-20">
                                                 <h6 style="font-size: 15px;" class="p-0">{{ $review->message }}</h6>
                                                 <p style="font-size: 13px;">
-                                                    {{ $review->user->name }}</p>
+                                                    {{ $review->user->name }}
+                                                </p>
                                             </div>
                                         @empty
                                             <div class="section-tittle mb-10">
@@ -199,95 +202,98 @@
                             </div>
                             {{-- ad description --}}
                         </div>
-                    </div>
-                    {{-- ad sidebar --}}
-                    <div class="col-xl-5 col-lg-12">
-                        {{-- seller info --}}
-                        <div class="sellerMessage mb-24">
-                            <div class="singleFlexitem mb-24">
 
-                                @if ($listing->user->avatar)
-                                    <div class="recentImg">
-                                        <img style="max-width:70px;" src="{{ $listing->user->avatar }}"
-                                            alt="images">
-                                    </div>
-                                @else
-                                    <div class="recentImg">
-                                        <img style="max-width:70px;"
-                                            src="{{ asset('assets/img/gallery/avatar.jpg') }}" alt="images">
-                                    </div>
-                                @endif
+                        {{-- ad sidebar --}}
+                        <div class="col-xl-5 col-lg-12">
+                            {{-- seller info --}}
+                            <div class="sellerMessage mb-24">
+                                <div class="singleFlexitem mb-24">
 
-                                <div class="recentCaption">
-                                    <h5><a class="featureTittle">{{ $listing->user->name }}</a>
-                                    </h5>
-                                    <p class="featureCap">Member since
-                                        {{ date('M Y', strtotime($listing->user->created_at)) }}</p>
-                                </div>
-                            </div>
-                            <form action="#" class="contactSeller">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <div class="input-form">
-                                            <input type="text" class="fake_contact" placeholder="07 ********">
-                                            <input type="text" class="real_contact"
-                                                placeholder="{{ $listing->user->phone_number }}">
-
-                                            <div class="icon"><i class="las la-phone"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="btn-wrapper mb-20">
-                                            <a class="btn_alt w-100 reveal_button">Reveal Contact</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="btn-wrapper">
-                                <a href="tel:{{ $listing->user->phone_number }}" class="btn_main w-100"><i
-                                        class="las la-phone"></i>Call
-                                    seller</a>
-                            </div>
-                        </div>
-                        {{-- seller info --}}
-
-                        {{-- related --}}
-                        <section class="recentListing">
-                            @foreach ($listings->take(-5) as $listing)
-                                <div class="borderStyle style1 wow fadeInLeft social"
-                                    data-wow-delay="0.{{ $loop->iteration }}s">
-                                    <div class="singleFlexitem mb-24">
+                                    @if ($listing->user->avatar)
                                         <div class="recentImg">
-                                            <img style="width: 255px; height:206px; object-fit: cover;"
-                                                src="{{ $listing->getFirstMediaUrl('listings') }}" alt="images">
+                                            <img style="max-width:70px;" src="{{ $listing->user->avatar }}"
+                                                alt="images">
                                         </div>
-                                        <div class="recentCaption">
-                                            <h5><a href="{{ route('listing.show', ['slug' => $listing->slug]) }}"
-                                                    class="featureTittle">{{ $listing->title }}</a></h5>
-                                            @if ($listing->user->location)
-                                                <p class="featureCap">{{ $listing->user->location }} · <strong
-                                                        class="subCap">{{ $listing->updated_at->diffForHumans(['parts' => 1]) }}</strong>
-                                                </p>
-                                            @else
-                                                <p class="featureCap">&nbsp; · <strong
-                                                        class="subCap">{{ $listing->updated_at->diffForHumans(['parts' => 1]) }}</strong>
-                                                </p>
-                                            @endif
-                                            <span class="featurePricing">Ksh
-                                                {{ number_format($listing->price) }}</span>
-                                            <div class="btn-wrapper">
-                                                <span class="latest_badge">Latest</span>
-                                                <span class="premium_badge">Trending</span>
+                                    @else
+                                        <div class="recentImg">
+                                            <img style="max-width:70px;"
+                                                src="{{ asset('assets/img/gallery/avatar.jpg') }}" alt="images">
+                                        </div>
+                                    @endif
+
+                                    <div class="recentCaption">
+                                        <h5><a class="featureTittle">{{ $listing->user->name }}</a>
+                                        </h5>
+                                        <p class="featureCap">Member since
+                                            {{ date('M Y', strtotime($listing->user->created_at)) }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <form action="#" class="contactSeller">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="input-form">
+                                                <input type="text" class="fake_contact" placeholder="07 ********">
+                                                <input type="text" class="real_contact"
+                                                    placeholder="{{ $listing->user->phone_number }}">
+
+                                                <div class="icon"><i class="las la-phone"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="btn-wrapper mb-20">
+                                                <a class="btn_alt w-100 reveal_button">Reveal Contact</a>
                                             </div>
                                         </div>
                                     </div>
+                                </form>
+                                <div class="btn-wrapper">
+                                    <a href="tel:{{ $listing->user->phone_number }}" class="btn_main w-100"><i
+                                            class="las la-phone"></i>Call
+                                        seller</a>
                                 </div>
-                            @endforeach
-                        </section>
-                        {{-- related --}}
+                            </div>
+                            {{-- seller info --}}
 
+                            {{-- related --}}
+                            <section class="recentListing">
+                                @foreach ($listings->take(-5) as $listing)
+                                    <div class="borderStyle style1 wow fadeInLeft social"
+                                        data-wow-delay="0.{{ $loop->iteration }}s">
+                                        <div class="singleFlexitem mb-24">
+                                            <div class="recentImg">
+                                                <img style="width: 255px; height:206px; object-fit: cover;"
+                                                    src="{{ $listing->getFirstMediaUrl('listings') }}"
+                                                    alt="images">
+                                            </div>
+                                            <div class="recentCaption">
+                                                <h5><a href="{{ route('listing.show', ['slug' => $listing->slug]) }}"
+                                                        class="featureTittle">{{ $listing->title }}</a></h5>
+                                                @if ($listing->user->location)
+                                                    <p class="featureCap">{{ $listing->user->location }} · <strong
+                                                            class="subCap">{{ $listing->updated_at->diffForHumans(['parts' => 1]) }}</strong>
+                                                    </p>
+                                                @else
+                                                    <p class="featureCap">&nbsp; · <strong
+                                                            class="subCap">{{ $listing->updated_at->diffForHumans(['parts' => 1]) }}</strong>
+                                                    </p>
+                                                @endif
+                                                <span class="featurePricing">Ksh
+                                                    {{ number_format($listing->price) }}</span>
+                                                <div class="btn-wrapper">
+                                                    <span class="latest_badge">Latest</span>
+                                                    <span class="premium_badge">Trending</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </section>
+                            {{-- related --}}
+
+                        </div>
+                        {{-- ad sidebar --}}
                     </div>
-                    {{-- ad sidebar --}}
                 </div>
             </div>
 

@@ -60,9 +60,7 @@
                         <p class="mb-20 text-center">Or register with:</p>
                         <div class="social-login-buttons" style="display: flex; justify-content: space-between">
                             <a href="{{ route('auth.social.google.redirect') }}" class="btn"
-                                style="background-color: #DB4437; color: #fff; width: 47%">Google</a>
-                            <a href="{{ route('auth.social.facebook.redirect') }}" class="btn"
-                                style="background-color: #3B5998; color: #fff; width: 47%">Facebook</a>
+                                style="background-color: #DB4437; color: #fff; width: 100%">Google</a>
                         </div>
                         <p class="sinUp text-center mt-4">
                             <span>Already have an account?</span><a href="{{ route('login') }}" class="singApp">Login

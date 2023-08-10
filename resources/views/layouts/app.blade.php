@@ -50,7 +50,7 @@
     </style>
 
     <!-- TinyMCE CDN -->
-    <script src="https://cdn.tiny.cloud/1/aygsogxe70x8lr6qx34szo7srzzhombt1y0qan462zgebdiv/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/sfxcod6de3g5yia9vqyzlms1v0ohxdltqqrgd7hrj58k56w1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
         selector: 'textarea#editor',

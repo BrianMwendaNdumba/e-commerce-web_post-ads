@@ -55,10 +55,17 @@ class ListingController extends Controller
 
         $listings = $all_listings->except([$listing->id]);
 
-        return view('ad')
-            ->with('listing', $listing)
-            ->with('listings', $listings)
-            ->with('reviews', $reviews);
+        if (auth()->check()) {
+            return view('ad-loggedin')
+                ->with('listing', $listing)
+                ->with('listings', $listings)
+                ->with('reviews', $reviews);
+        } else {
+            return view('ad')
+                ->with('listing', $listing)
+                ->with('listings', $listings)
+                ->with('reviews', $reviews);
+        }
     }
 
     /**
